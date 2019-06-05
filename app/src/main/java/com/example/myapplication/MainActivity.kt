@@ -16,6 +16,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,PauseMenu::class.java)
 
             startActivity(intent)
+            //
         }
     }
 
