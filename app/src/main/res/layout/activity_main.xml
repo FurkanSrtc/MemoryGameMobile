@@ -20,6 +20,7 @@
             android:layout_width="160dp"
             android:layout_height="0dp" app:srcCompat="@drawable/brain"
             android:id="@+id/imageView3"
+            android:contentDescription=""
             android:layout_marginTop="189dp"
             android:layout_marginBottom="240dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/textView" app:layout_constraintTop_toTopOf="parent"
@@ -27,6 +28,7 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription=""
             android:id="@+id/textView"
             tools:text="By getting started you agree with terms of services" android:textColor="#FFFFFF"
             app:layout_constraintTop_toBottomOf="@+id/imageView3" android:layout_marginBottom="57dp"

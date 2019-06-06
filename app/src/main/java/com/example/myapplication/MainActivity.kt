@@ -13,9 +13,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         btnStart.setOnClickListener {
-            val intent = Intent(this,PauseMenu::class.java)
 
-            startActivity(intent)
+            val inten=Intent(this,GameMenu::class.java)
+            startActivity(inten)
             //
         }
     }
