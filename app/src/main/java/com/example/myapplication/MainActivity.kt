@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
 
         btnStart.setOnClickListener {
 
-            val inten=Intent(this,GameMenu::class.java)
+            val inten=Intent(this,GameActivity::class.java)
             startActivity(inten)
             //
         }

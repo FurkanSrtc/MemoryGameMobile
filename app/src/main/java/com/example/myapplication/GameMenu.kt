@@ -1,15 +1,10 @@
 package com.example.myapplication
 
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.print.PrintAttributes
+import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TableRow
+import android.widget.*
 import kotlinx.android.synthetic.main.activity_game_menu.*
 
 class GameMenu : AppCompatActivity() {
@@ -18,12 +13,25 @@ class GameMenu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_menu)
 
-        createTable(3, 3)
+       // createTable(3, 3)
     }
 
 
+/*
+    fun getOnClickDoSomething(button: Button): View.OnClickListener {
+        return View.OnClickListener {
+            val criteria = button.text.toString()
+            if ("Exams" == criteria) {
+                Toast.makeText(applicationContext, "Exams Selected", 2).show()
+            } else if ("Quizzes" == criteria) {
+                Toast.makeText(applicationContext, "Quizzes Selected", 2).show()
+            }
+        }
+    }
+*/
 
- private fun createTable(rows: Int, cols: Int){
+/*
+*  private fun createTable(rows: Int, cols: Int){
 
 
      for (i in 0 until rows)
@@ -42,15 +50,20 @@ class GameMenu : AppCompatActivity() {
                  setImageResource(R.drawable.buttonkapalikart)
 setPadding(20,20,0,0)
                  setBackgroundColor(16777215)
+                 id = ((i+1)*10)+(j+1)
+
              }
-
+                button.setOnClickListener(getOnClickDoSomething(button =
+                ))
              tableRow.addView(button)
+
          }
-         tableButtons.addView(tableRow)
+         LayoutTable.addView(tableRow)
      }
 
 
      }
+* */
 
 
     }
