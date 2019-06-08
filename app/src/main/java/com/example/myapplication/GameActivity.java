@@ -5,12 +5,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.nfc.Tag;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.print.PrintAttributes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 
 import java.sql.Time;
@@ -25,13 +28,12 @@ public class GameActivity extends AppCompatActivity {
     private static int randomCols[] = new int[NUM_COLS];
 
 
-
     Handler handler;
     Runnable runnable;
 
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
 
-    List<Button> btnList=new ArrayList<Button>();
+    List<Button> btnList = new ArrayList<Button>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,17 +51,18 @@ public class GameActivity extends AppCompatActivity {
     int randomRow;
     int randomCol;
     Random rnd = new Random();
-
+int sayackart=0;
     int[] acilacakRowlar = new int[AcilacakKartSayisi];
     int[] acilacakColumnlar = new int[AcilacakKartSayisi];
-String a="";
+
     private void kontrol(int row, int col) {
-        if (buttons[row][col].getBackground() == (getDrawable(R.drawable.buttonacik))) {
+        if (buttons[row][col].getTag() == "acik") {
             row = rnd.nextInt(NUM_ROWS);
             col = rnd.nextInt(NUM_COLS);
             kontrol(row, col);
         } else {
             buttons[row][col].setBackground(getDrawable(R.drawable.buttonacik));
+            buttons[row][col].setTag("acik");
             acilacakRowlar[sayac] = row;
             acilacakColumnlar[sayac] = col;
         }
@@ -76,28 +79,41 @@ String a="";
 
                     randomRow = rnd.nextInt(NUM_ROWS);
                     randomCol = rnd.nextInt(NUM_COLS);
-                    if (sayac==0) handler.postDelayed(this, 1500);
-                   else handler.postDelayed(this, 400);
 
                     kontrol(randomRow, randomCol);
+                    if (sayac == 0)
+                    {
+                        handler.postDelayed(this, 1000);
+                    }
+                    else {
 
-                    a+=acilacakRowlar[sayac] +"-"+acilacakColumnlar[sayac]+" | ";
+                            buttons[acilacakRowlar[sayac-1]][acilacakColumnlar[sayac-1]].setBackground(getDrawable(R.drawable.buttonkapalikart));
+
+                        handler.postDelayed(this, 400);
+                    }
+
                     sayac++;
 
                 } else {
+                    if (sayac==AcilacakKartSayisi)
+                    buttons[acilacakRowlar[sayac-1]][acilacakColumnlar[sayac-1]].setBackground(getDrawable(R.drawable.buttonkapalikart));
+
                     /*
 TextView textView=(TextView)findViewById(R.id.textView6);
 textView.setText(a);*/
                     //for (int i=0; i<AcilacakKartSayisi)
+                   /*
                     if (kartKapatanSayac < AcilacakKartSayisi) {
                         buttons[acilacakRowlar[kartKapatanSayac]][acilacakColumnlar[kartKapatanSayac]].setBackground(getDrawable(R.drawable.buttonkapalikart));
                         handler.postDelayed(this, 400);
                         kartKapatanSayac++;
                     } else { //for (int i=0; i<AcilacakKartSayisi)
                         handler.removeCallbacks(runnable);
+                    } */
+                    //for (int i=0; i<AcilacakKartSayisi)
+                        handler.removeCallbacks(runnable);
                     }
 
-                }
             }
         };
         handler.post(runnable);
@@ -115,6 +131,8 @@ textView.setText(a);*/
                     1.0f));
 
 
+
+
             table.addView(tableRow);
 
             for (int col = 0; col < NUM_COLS; col++) {
@@ -126,13 +144,14 @@ textView.setText(a);*/
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT,
+
                         1.0f));
 
                 //     button.setText("" + col + "," + row);
 
                 button.setId(((col + 1) * 10) + (row + 1));
                 // Make text not clip on small buttons
-                button.setPadding(10, 10, 10, 10);
+                button.setPadding(0, 0, 0, 0);
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -168,7 +187,7 @@ textView.setText(a);*/
         // http://commons.wikimedia.org/wiki/Crystal_Clear
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.buttonkapalikart);
+        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.buttonacik);
         Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
         Resources resource = getResources();
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
@@ -182,6 +201,7 @@ textView.setText(a);*/
         for (int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
                 Button button = buttons[row][col];
+
 
                 int width = button.getWidth();
                 button.setMinWidth(width);

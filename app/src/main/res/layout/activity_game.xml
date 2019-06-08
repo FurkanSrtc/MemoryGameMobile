@@ -14,20 +14,36 @@ android:orientation="vertical">
             android:layout_height="wrap_content">
 
         <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" app:srcCompat="@drawable/levelbuton" android:id="@+id/imageView5"
-                android:layout_gravity="center|top"/>
-        <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" app:srcCompat="@drawable/levelbuton" android:id="@+id/imageView5"
+        android:layout_gravity="center|top"/>
+    <TextView
 
-                android:text="Level 1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="40sp"
-                android:layout_gravity="center|top"/>
-    </FrameLayout>
+            android:text="Level 1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="40sp"
+            android:layout_gravity="center|top"/>
+</FrameLayout>
     <TableLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" android:gravity="center" android:id="@+id/layoutTable">
 
 
     </TableLayout>
+
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:foregroundGravity="bottom" android:layout_gravity="bottom">
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" app:srcCompat="@drawable/levelbuton" android:id="@+id/imageView5"
+                android:layout_gravity="bottom"/>
+        <TextView
+
+                android:text="Level 1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" android:id="@+id/text7" android:textSize="40sp"
+                android:layout_gravity="center|top"/>
+    </FrameLayout>
 </LinearLayout>
