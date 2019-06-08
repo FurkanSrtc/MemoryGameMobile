@@ -18,11 +18,12 @@ import java.util.*;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final int AcilacakKartSayisi = 3;
+    private static final int AcilacakKartSayisi = 5;
     private static final int NUM_ROWS = 3;
     private static final int NUM_COLS = 3;
-    private static int randomRows[]=new int[NUM_ROWS];
-    private static  int randomCols[]=new int[NUM_COLS];
+    private static int randomRows[] = new int[NUM_ROWS];
+    private static int randomCols[] = new int[NUM_COLS];
+
 
 
     Handler handler;
@@ -30,123 +31,84 @@ public class GameActivity extends AppCompatActivity {
 
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
 
-
-
+    List<Button> btnList=new ArrayList<Button>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
         populateButtons();
 
-
         ButtonTimer();
-
-
-    /*  Random rnd=new Random();
-      for (int i=0; i<NUM_ROWS;i++)
-      {
-          randomRows[i]=rnd.nextInt(NUM_ROWS);
-      }
-
-        for (int i=0; i<NUM_ROWS;i++)   //--------------------------------------------------NUM ROWS U COLS YAP
-        {
-            randomCols[i]=rnd.nextInt(NUM_COLS);
-        }*/
-
-
-
-        // Executes the task in 500 milliseconds
-      /*    for ( row = 0; row < NUM_ROWS; row++) {
-
-
-
-            for ( col = 0; col < NUM_COLS; col++){
-
-                  buttons[row][col].setVisibility(View.VISIBLE);
-                    buttons[row][col].setBackgroundColor(Color.RED);
-
-
-            }
-        }*/
-
-
     }
 
 
-    int sayac=0;
-    int kartKapatanSayac=0;
+    int sayac = 0;
+    int kartKapatanSayac = 0;
 
     int randomRow;
     int randomCol;
-    Random rnd=new Random();
+    Random rnd = new Random();
 
-
-
-    List<Integer> acilacakRowlar=new ArrayList<Integer>();
-    List<Integer> acilacakColumnlar=new ArrayList<Integer>();
-
-    private void kontrol(int row,int col)
-    {
-        if (buttons[row][col].getBackground()==(getDrawable(R.drawable.buttonacik)))
-        {
-            row=rnd.nextInt(NUM_ROWS);
-            col=rnd.nextInt(NUM_COLS);
-            kontrol(row,col);
-        }
-        else
-        {buttons[row][col].setBackground(getDrawable(R.drawable.buttonacik));
-        acilacakRowlar.add(sayac,row);
-        acilacakColumnlar.add(sayac,col);
+    int[] acilacakRowlar = new int[AcilacakKartSayisi];
+    int[] acilacakColumnlar = new int[AcilacakKartSayisi];
+String a="";
+    private void kontrol(int row, int col) {
+        if (buttons[row][col].getBackground() == (getDrawable(R.drawable.buttonacik))) {
+            row = rnd.nextInt(NUM_ROWS);
+            col = rnd.nextInt(NUM_COLS);
+            kontrol(row, col);
+        } else {
+            buttons[row][col].setBackground(getDrawable(R.drawable.buttonacik));
+            acilacakRowlar[sayac] = row;
+            acilacakColumnlar[sayac] = col;
         }
     }
 
-public void ButtonTimer(){
-        handler=new Handler();
-        runnable=new Runnable() {
+    public void ButtonTimer() {
+        handler = new Handler();
+        runnable = new Runnable() {
             @Override
             public void run() {
 
 
-if (sayac<AcilacakKartSayisi){
+                if (sayac < AcilacakKartSayisi) {
 
-                    randomRow=rnd.nextInt(NUM_ROWS);
-                    randomCol=rnd.nextInt(NUM_COLS);
-                   kontrol(randomRow,randomCol);
-                handler.postDelayed(this,500);
-    sayac++;
-}
+                    randomRow = rnd.nextInt(NUM_ROWS);
+                    randomCol = rnd.nextInt(NUM_COLS);
+                    if (sayac==0) handler.postDelayed(this, 1500);
+                   else handler.postDelayed(this, 400);
 
-else
-{
+                    kontrol(randomRow, randomCol);
 
-    //for (int i=0; i<AcilacakKartSayisi)
-    if (kartKapatanSayac<AcilacakKartSayisi) {
-        buttons[acilacakRowlar.get(kartKapatanSayac)][acilacakColumnlar.get(kartKapatanSayac)].setBackground(getDrawable(R.drawable.buttonkapalikart));
-        kartKapatanSayac++;
-    }
-    else
-    { //for (int i=0; i<AcilacakKartSayisi)
-        handler.removeCallbacks(runnable);
-    }
+                    a+=acilacakRowlar[sayac] +"-"+acilacakColumnlar[sayac]+" | ";
+                    sayac++;
 
-}
+                } else {
+                    /*
+TextView textView=(TextView)findViewById(R.id.textView6);
+textView.setText(a);*/
+                    //for (int i=0; i<AcilacakKartSayisi)
+                    if (kartKapatanSayac < AcilacakKartSayisi) {
+                        buttons[acilacakRowlar[kartKapatanSayac]][acilacakColumnlar[kartKapatanSayac]].setBackground(getDrawable(R.drawable.buttonkapalikart));
+                        handler.postDelayed(this, 400);
+                        kartKapatanSayac++;
+                    } else { //for (int i=0; i<AcilacakKartSayisi)
+                        handler.removeCallbacks(runnable);
+                    }
 
-
+                }
             }
         };
         handler.post(runnable);
-}
-
-
+    }
 
 
     private void populateButtons() {
         TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
 
         for (int row = 0; row < NUM_ROWS; row++) {
-           final TableRow tableRow = new TableRow(this);
+            final TableRow tableRow = new TableRow(this);
             tableRow.setLayoutParams(new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.MATCH_PARENT,
@@ -155,31 +117,31 @@ else
 
             table.addView(tableRow);
 
-            for (int col = 0; col < NUM_COLS; col++){
+            for (int col = 0; col < NUM_COLS; col++) {
 
                 final int FINAL_COL = col;
                 final int FINAL_ROW = row;
 
-               final Button button = new Button(this);
+                final Button button = new Button(this);
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT,
                         1.0f));
 
-           //     button.setText("" + col + "," + row);
+                //     button.setText("" + col + "," + row);
 
-                button.setId(((col+1)*10)+(row+1));
+                button.setId(((col + 1) * 10) + (row + 1));
                 // Make text not clip on small buttons
-                button.setPadding(10,10,10,10);
+                button.setPadding(10, 10, 10, 10);
 
-                button.setOnClickListener(new View.OnClickListener(){
+                button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         gridButtonClicked(FINAL_COL, FINAL_ROW);
                     }
                 });
 
-button.setBackground(getDrawable(R.drawable.buttonkapalikart));
+                button.setBackground(getDrawable(R.drawable.buttonkapalikart));
 
 //button.setVisibility(View.INVISIBLE);
 
@@ -212,7 +174,7 @@ button.setBackground(getDrawable(R.drawable.buttonkapalikart));
         button.setBackground(new BitmapDrawable(resource, scaledBitmap));
 
         // Change text on button:
-      //  button.setText("" + col);  KOLON SAYISINI ÜSTÜNE YAZ
+        //  button.setText("" + col);  KOLON SAYISINI ÜSTÜNE YAZ
 
     }
 
@@ -231,8 +193,6 @@ button.setBackground(getDrawable(R.drawable.buttonkapalikart));
             }
         }
     }
-
-
 
 
 }
