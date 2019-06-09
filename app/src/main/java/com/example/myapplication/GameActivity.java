@@ -150,7 +150,7 @@ public class GameActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "SIRA SENDE !",
                             Toast.LENGTH_SHORT).show();
                     handler.removeCallbacks(runnable);
-
+                KartEnabled(true);
 
                 }
 
@@ -159,6 +159,16 @@ public class GameActivity extends AppCompatActivity {
         handler.post(runnable);
     }
 
+private  void KartEnabled(boolean b)
+{
+    for (int row = 0; row < NUM_ROWS; row++) {
+
+        for (int col = 0; col < NUM_COLS; col++) {
+            buttons[row][col].setEnabled(b);
+        }
+    }
+
+}
 
     private void populateButtons() {   //TABLO SATIR SÜTUN ve BUTON AYARI
         TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
@@ -186,6 +196,7 @@ public class GameActivity extends AppCompatActivity {
                 button.setId(((col + 1) * 10) + (row + 1));
                 // Make text not clip on small buttons
                 button.setPadding(0, 0, 0, 0);
+                button.setEnabled(false);
                 button.setTag("kapali");
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -209,13 +220,15 @@ public class GameActivity extends AppCompatActivity {
         if (col == acilacakColumnlar[clicksayac] && row == acilacakRowlar[clicksayac])  //DOĞRU KARTI SEÇERSE
         {
             button.setBackground(getDrawable(R.drawable.buttonacik));
-
+            button.setEnabled(false);
 
             clicksayac++;
             if (clicksayac == AcilacakKartSayisi)  //TÜM KARTLARI DOĞRU SEÇERSE
-            {
+            {  final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
                 Toast.makeText(this, "KAZANDIN",
                         Toast.LENGTH_SHORT).show();
+                vibrator.vibrate(200);
+                vibrator.vibrate(500);
                 YeniSeviye();
             }
         } else // YANLIŞ KARTI SEÇERSE
@@ -225,7 +238,10 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
-//TEST2
+
+
+
+
     private void YanlisKart(final Button buton)
     {
         final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
