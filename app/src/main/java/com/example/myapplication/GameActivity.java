@@ -24,8 +24,8 @@ import java.util.*;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final int AcilacakKartSayisi = 3;
-    private static final int NUM_ROWS = 3;
+    private static final int AcilacakKartSayisi = 4;
+    private static final int NUM_ROWS = 5;
     private static final int NUM_COLS = 3;
     int sayac = 0;
     int randomRow;
@@ -129,7 +129,11 @@ textView.setText(a);*/
                         handler.removeCallbacks(runnable);
                     } */
                     //for (int i=0; i<AcilacakKartSayisi)
-                        handler.removeCallbacks(runnable);
+                    Toast.makeText(getApplicationContext(), "SIRA SENDE !",
+                            Toast.LENGTH_SHORT).show();
+                    handler.removeCallbacks(runnable);
+
+
                     }
 
             }
