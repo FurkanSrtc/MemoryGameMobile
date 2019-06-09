@@ -43,7 +43,7 @@ public class GameActivity extends AppCompatActivity {
     Runnable runnable;
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
     List<Button> btnList = new ArrayList<Button>();
-
+int level=1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +81,10 @@ public class GameActivity extends AppCompatActivity {
             acilacakColumnlar = new int[AcilacakKartSayisi];
             btnList = new ArrayList<Button>();
             buttons = new Button[NUM_ROWS][NUM_COLS];
+
+            level++;
+            TextView textView=(TextView)findViewById(R.id.textView6);
+            textView.setText("Level "+level );
             populateButtons();
 
             ButtonTimer();
@@ -94,6 +98,9 @@ public class GameActivity extends AppCompatActivity {
             clicksayac = 0;
             kartKapatanSayac = 0;
 
+            level++;
+            TextView textView=(TextView)findViewById(R.id.textView6);
+            textView.setText("Level "+level );
 
             AcilacakKartSayisi++;
             if (AcilacakKartSayisi > (NUM_ROWS * NUM_COLS)) {
@@ -231,7 +238,9 @@ private  void KartEnabled(boolean b)
                 vibrator.vibrate(500);
                 YeniSeviye();
             }
-        } else // YANLIŞ KARTI SEÇERSE
+        }
+
+        else // YANLIŞ KARTI SEÇERSE
         {
             button.setBackground(getDrawable(R.drawable.buttonhatakart));
             YanlisKart(button);

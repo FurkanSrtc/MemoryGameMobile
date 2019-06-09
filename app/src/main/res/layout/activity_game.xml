@@ -12,7 +12,8 @@ android:orientation="vertical">
 
     <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_marginTop="15dp">
+            android:layout_height="wrap_content" android:layout_marginTop="15dp" android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp">
 
         <ImageView
                 android:layout_width="wrap_content"
@@ -22,8 +23,10 @@ android:orientation="vertical">
 
                 android:text="Level 1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="40sp"
-                android:layout_gravity="center|top"/>
+                android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="30sp"
+                android:layout_gravity="center|top"
+
+        />
     </FrameLayout>
     <TableLayout
             android:layout_width="match_parent"
