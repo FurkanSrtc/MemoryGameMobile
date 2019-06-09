@@ -5,9 +5,11 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.nfc.Tag;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.Vibrator;
 import android.print.PrintAttributes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -35,15 +37,11 @@ public class GameActivity extends AppCompatActivity {
     Random rnd = new Random();
     int[] acilacakRowlar = new int[AcilacakKartSayisi];
     int[] acilacakColumnlar = new int[AcilacakKartSayisi];
-
-    int clicksayac=0;
+    int clicksayac = 0;
     private AdView mAdView;
-
     Handler handler;
     Runnable runnable;
-
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
-
     List<Button> btnList = new ArrayList<Button>();
 
 
@@ -52,29 +50,23 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-
+        //region REKLAMLAR
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.BANNER);
         adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
 // TODO: Add adView to your view hierarchy.
-
-        MobileAds.initialize(this,"ca-app-pub-5098083474917427~7900549557");
-
-
+        MobileAds.initialize(this, "ca-app-pub-5098083474917427~7900549557");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
-
-
         Log.d("Tag", "onCreate: Furkan Test");
+        //endregion
+
         populateButtons();
-
         ButtonTimer();
-
-
     }
 
-    int tekrar=0;
+    int tekrar = 0; //Seviye Tekrar
     private void YeniSeviye() {
         tekrar++;
         if (tekrar < 2) {
@@ -82,54 +74,41 @@ public class GameActivity extends AppCompatActivity {
 
             TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
             table.removeAllViews();
-
             sayac = 0;
             clicksayac = 0;
             kartKapatanSayac = 0;
-
-
-
             acilacakRowlar = new int[AcilacakKartSayisi];
             acilacakColumnlar = new int[AcilacakKartSayisi];
-
             btnList = new ArrayList<Button>();
             buttons = new Button[NUM_ROWS][NUM_COLS];
-
             populateButtons();
 
             ButtonTimer();
 
 
         } else {
-            tekrar=0;
+            tekrar = 0;
             TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
             table.removeAllViews();
-
             sayac = 0;
             clicksayac = 0;
             kartKapatanSayac = 0;
 
 
             AcilacakKartSayisi++;
-
             if (AcilacakKartSayisi > (NUM_ROWS * NUM_COLS)) {
                 NUM_ROWS++;
                 NUM_COLS++;
             }
-
             acilacakRowlar = new int[AcilacakKartSayisi];
             acilacakColumnlar = new int[AcilacakKartSayisi];
-
             btnList = new ArrayList<Button>();
             buttons = new Button[NUM_ROWS][NUM_COLS];
-
             populateButtons();
-
             ButtonTimer();
 
         }
     }
-
 
     private void kontrol(int row, int col) {
         if (buttons[row][col].getTag() == "acik") {
@@ -144,12 +123,11 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void ButtonTimer() {
+    public void ButtonTimer() { //RANDOM YANAN BUTON SIRALAMASI
         handler = new Handler();
         runnable = new Runnable() {
             @Override
             public void run() {
-
 
                 if (sayac < AcilacakKartSayisi) {
 
@@ -157,42 +135,24 @@ public class GameActivity extends AppCompatActivity {
                     randomCol = rnd.nextInt(NUM_COLS);
 
                     kontrol(randomRow, randomCol);
-                    if (sayac == 0)
-                    {
+                    if (sayac == 0) {
                         handler.postDelayed(this, 1000);
-                    }
-                    else {
-
-                            buttons[acilacakRowlar[sayac-1]][acilacakColumnlar[sayac-1]].setBackground(getDrawable(R.drawable.buttonkapalikart));
-
+                    } else {
+                        buttons[acilacakRowlar[sayac - 1]][acilacakColumnlar[sayac - 1]].setBackground(getDrawable(R.drawable.buttonkapalikart));
                         handler.postDelayed(this, 400);
                     }
-
                     sayac++;
 
                 } else {
-                    if (sayac==AcilacakKartSayisi)
-                    buttons[acilacakRowlar[sayac-1]][acilacakColumnlar[sayac-1]].setBackground(getDrawable(R.drawable.buttonkapalikart));
+                    if (sayac == AcilacakKartSayisi)
+                        buttons[acilacakRowlar[sayac - 1]][acilacakColumnlar[sayac - 1]].setBackground(getDrawable(R.drawable.buttonkapalikart));
 
-                    /*
-TextView textView=(TextView)findViewById(R.id.textView6);
-textView.setText(a);*/
-                    //for (int i=0; i<AcilacakKartSayisi)
-                   /*
-                    if (kartKapatanSayac < AcilacakKartSayisi) {
-                        buttons[acilacakRowlar[kartKapatanSayac]][acilacakColumnlar[kartKapatanSayac]].setBackground(getDrawable(R.drawable.buttonkapalikart));
-                        handler.postDelayed(this, 400);
-                        kartKapatanSayac++;
-                    } else { //for (int i=0; i<AcilacakKartSayisi)
-                        handler.removeCallbacks(runnable);
-                    } */
-                    //for (int i=0; i<AcilacakKartSayisi)
                     Toast.makeText(getApplicationContext(), "SIRA SENDE !",
                             Toast.LENGTH_SHORT).show();
                     handler.removeCallbacks(runnable);
 
 
-                    }
+                }
 
             }
         };
@@ -200,24 +160,16 @@ textView.setText(a);*/
     }
 
 
-    private void populateButtons() {
+    private void populateButtons() {   //TABLO SATIR SÜTUN ve BUTON AYARI
         TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
 
         for (int row = 0; row < NUM_ROWS; row++) {
             final TableRow tableRow = new TableRow(this);
 
-
             tableRow.setLayoutParams(new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.MATCH_PARENT,
                     1.0f));
-
-         /*  ////////
-            TableLayout.LayoutParams tableRowParams=new TableLayout.LayoutParams();
-            tableRowParams.setMargins(20,10,20,10);
-            ;
-            tableRow.setLayoutParams(tableRowParams);
-            ////////*/
             table.addView(tableRow);
 
             for (int col = 0; col < NUM_COLS; col++) {
@@ -229,10 +181,7 @@ textView.setText(a);*/
                 button.setLayoutParams(new TableRow.LayoutParams(
                         TableRow.LayoutParams.MATCH_PARENT,
                         TableRow.LayoutParams.MATCH_PARENT,
-
                         1.0f));
-
-                //     button.setText("" + col + "," + row);
 
                 button.setId(((col + 1) * 10) + (row + 1));
                 // Make text not clip on small buttons
@@ -246,65 +195,52 @@ textView.setText(a);*/
                 });
 
                 button.setBackground(getDrawable(R.drawable.buttonkapalikart));
-
-//button.setVisibility(View.INVISIBLE);
-
                 tableRow.addView(button);
-
                 buttons[row][col] = button;
             }
         }
     }
 
     private void gridButtonClicked(int col, int row) {
-        /*Toast.makeText(this, "Button clicked: " + col + "," + row,
-                Toast.LENGTH_SHORT).show();*/
         Button button = buttons[row][col];
-
-        // Lock Button Sizes:
-        //lockButtonSizes();            //////////////////////////////////-----------LOCK BUTTON SIZE
-
-        // Does not scale image.
-//    	button.setBackgroundResource(R.drawable.action_lock_pink);
 
         int newWidth = button.getWidth();
         int newHeight = button.getHeight();
-       if (col==acilacakColumnlar[clicksayac] && row==acilacakRowlar[clicksayac] )
-       {
-
-           /*Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.buttonacik);
-           Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-           Resources resource = getResources();*/
-           button.setBackground(getDrawable(R.drawable.buttonacik));
+        if (col == acilacakColumnlar[clicksayac] && row == acilacakRowlar[clicksayac])  //DOĞRU KARTI SEÇERSE
+        {
+            button.setBackground(getDrawable(R.drawable.buttonacik));
 
 
-           clicksayac++;
-           if (clicksayac==AcilacakKartSayisi)
-           {
-               Toast.makeText(this, "KAZANDIN",
-                       Toast.LENGTH_SHORT).show();
-               YeniSeviye();
-           }
-       }
-        // Scale image to button: Only works in JellyBean!
-        // Image from Crystal Clear icon set, under LGPL
-        // http://commons.wikimedia.org/wiki/Crystal_Clear
-      else
-       {
-         /*  Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.buttonhatakart);
-           Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-           Resources resource = getResources();
-           button.setBackground(new BitmapDrawable(resource, scaledBitmap));*/
-           button.setBackground(getDrawable(R.drawable.buttonhatakart));
-
-       }
-
-
-        // Change text on button:
-        //  button.setText("" + col);  KOLON SAYISINI ÜSTÜNE YAZ
+            clicksayac++;
+            if (clicksayac == AcilacakKartSayisi)  //TÜM KARTLARI DOĞRU SEÇERSE
+            {
+                Toast.makeText(this, "KAZANDIN",
+                        Toast.LENGTH_SHORT).show();
+                YeniSeviye();
+            }
+        } else // YANLIŞ KARTI SEÇERSE
+        {
+            button.setBackground(getDrawable(R.drawable.buttonhatakart));
+            YanlisKart(button);
+        }
 
     }
 
+    private void YanlisKart(final Button buton)
+    {
+        final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                  buton.setBackground(getDrawable(R.drawable.buttonkapalikart));
+                    handler.removeCallbacks(runnable);
+vibrator.vibrate(50);
+
+            }
+        };
+        handler.postDelayed(runnable,200);
+    }
 
     private void lockButtonSizes() {
         for (int row = 0; row < NUM_ROWS; row++) {
