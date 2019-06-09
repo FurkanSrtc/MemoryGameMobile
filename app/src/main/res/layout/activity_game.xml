@@ -5,45 +5,42 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/arkaplan"
         tools:context=".GameActivity" android:layout_gravity="center"
 android:orientation="vertical">
 
 
     <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-        <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" app:srcCompat="@drawable/levelbuton" android:id="@+id/imageView5"
-        android:layout_gravity="center|top"/>
-    <TextView
-
-            android:text="Level 1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="40sp"
-            android:layout_gravity="center|top"/>
-</FrameLayout>
-    <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" android:gravity="center" android:id="@+id/layoutTable">
-
-
-    </TableLayout>
-
-    <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:foregroundGravity="bottom" android:layout_gravity="bottom">
+            android:layout_height="wrap_content" android:layout_marginTop="15dp">
 
         <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" app:srcCompat="@drawable/levelbuton" android:id="@+id/imageView5"
-                android:layout_gravity="bottom"/>
+                android:layout_gravity="center|top"/>
         <TextView
 
                 android:text="Level 1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/text7" android:textSize="40sp"
+                android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="40sp"
                 android:layout_gravity="center|top"/>
     </FrameLayout>
+    <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="572dp" android:id="@+id/layoutTable" android:layout_marginLeft="15dp"
+            android:layout_marginTop="20dp" android:layout_marginRight="15dp"
+            android:paddingBottom="10dp">
+
+
+    </TableLayout>
+    <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="67dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" android:layout_gravity="bottom">
+    </com.google.android.gms.ads.AdView>
 </LinearLayout>

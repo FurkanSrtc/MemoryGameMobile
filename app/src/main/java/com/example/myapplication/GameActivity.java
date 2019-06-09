@@ -11,22 +11,32 @@ import android.os.Handler;
 import android.print.PrintAttributes;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
+import com.google.android.gms.ads.*;
+import com.google.android.gms.ads.AdView;
 
 import java.sql.Time;
 import java.util.*;
 
 public class GameActivity extends AppCompatActivity {
 
-    private static final int AcilacakKartSayisi = 5;
+    private static final int AcilacakKartSayisi = 3;
     private static final int NUM_ROWS = 3;
     private static final int NUM_COLS = 3;
-    private static int randomRows[] = new int[NUM_ROWS];
-    private static int randomCols[] = new int[NUM_COLS];
+    int sayac = 0;
+    int randomRow;
+    int randomCol;
+    int kartKapatanSayac = 0;
+    Random rnd = new Random();
+    int[] acilacakRowlar = new int[AcilacakKartSayisi];
+    int[] acilacakColumnlar = new int[AcilacakKartSayisi];
 
+
+    private AdView mAdView;
 
     Handler handler;
     Runnable runnable;
@@ -39,21 +49,29 @@ public class GameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.BANNER);
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+// TODO: Add adView to your view hierarchy.
+
+        MobileAds.initialize(this,"ca-app-pub-5098083474917427~7900549557");
+
+
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         populateButtons();
 
         ButtonTimer();
+
+
     }
 
 
-    int sayac = 0;
-    int kartKapatanSayac = 0;
 
-    int randomRow;
-    int randomCol;
-    Random rnd = new Random();
-int sayackart=0;
-    int[] acilacakRowlar = new int[AcilacakKartSayisi];
-    int[] acilacakColumnlar = new int[AcilacakKartSayisi];
 
     private void kontrol(int row, int col) {
         if (buttons[row][col].getTag() == "acik") {
@@ -125,14 +143,19 @@ textView.setText(a);*/
 
         for (int row = 0; row < NUM_ROWS; row++) {
             final TableRow tableRow = new TableRow(this);
+
+
             tableRow.setLayoutParams(new TableLayout.LayoutParams(
                     TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.MATCH_PARENT,
                     1.0f));
 
-
-
-
+         /*  ////////
+            TableLayout.LayoutParams tableRowParams=new TableLayout.LayoutParams();
+            tableRowParams.setMargins(20,10,20,10);
+            ;
+            tableRow.setLayoutParams(tableRowParams);
+            ////////*/
             table.addView(tableRow);
 
             for (int col = 0; col < NUM_COLS; col++) {
@@ -170,32 +193,51 @@ textView.setText(a);*/
             }
         }
     }
-
+    int clicksayac=0;
     private void gridButtonClicked(int col, int row) {
         Toast.makeText(this, "Button clicked: " + col + "," + row,
                 Toast.LENGTH_SHORT).show();
         Button button = buttons[row][col];
 
         // Lock Button Sizes:
-        lockButtonSizes();
+        //lockButtonSizes();            //////////////////////////////////-----------LOCK BUTTON SIZE
 
         // Does not scale image.
 //    	button.setBackgroundResource(R.drawable.action_lock_pink);
 
+        int newWidth = button.getWidth();
+        int newHeight = button.getHeight();
+       if (col==acilacakColumnlar[clicksayac] && row==acilacakRowlar[clicksayac] )
+       {
+
+           Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.buttonacik);
+           Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+           Resources resource = getResources();
+           button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+           clicksayac++;
+           if (clicksayac==AcilacakKartSayisi)
+           {
+               Toast.makeText(this, "KAZANDIN",
+                       Toast.LENGTH_SHORT).show();
+           }
+       }
         // Scale image to button: Only works in JellyBean!
         // Image from Crystal Clear icon set, under LGPL
         // http://commons.wikimedia.org/wiki/Crystal_Clear
-        int newWidth = button.getWidth();
-        int newHeight = button.getHeight();
-        Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.buttonacik);
-        Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
-        Resources resource = getResources();
-        button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+      else
+       {
+           Bitmap originalBitmap = BitmapFactory.decodeResource(getResources(), R.drawable.buttonhatakart);
+           Bitmap scaledBitmap = Bitmap.createScaledBitmap(originalBitmap, newWidth, newHeight, true);
+           Resources resource = getResources();
+           button.setBackground(new BitmapDrawable(resource, scaledBitmap));
+       }
+
 
         // Change text on button:
         //  button.setText("" + col);  KOLON SAYISINI ÜSTÜNE YAZ
 
     }
+
 
     private void lockButtonSizes() {
         for (int row = 0; row < NUM_ROWS; row++) {
