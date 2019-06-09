@@ -225,7 +225,7 @@ public class GameActivity extends AppCompatActivity {
         }
 
     }
-//TEST
+//TEST2
     private void YanlisKart(final Button buton)
     {
         final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
