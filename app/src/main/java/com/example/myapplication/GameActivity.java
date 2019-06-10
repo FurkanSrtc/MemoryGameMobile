@@ -49,12 +49,20 @@ int level=1;
 int score=0;
 int life=5;
 int combo=0;
-int combohata=0;
-
+int combohata=0; //Yanlış seçim yapıldığında artıyor
+    TextView textView;
+    TextView txtCombo;
+    TextView txtSkor;
+    TextView txtLife;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        textView=(TextView)findViewById(R.id.textView6);
+        txtCombo= (TextView)findViewById(R.id.txtCombo);
+        txtSkor= (TextView)findViewById(R.id.txtScore);
+        txtLife=(TextView)findViewById(R.id.txtLife);
 
         //region REKLAMLAR
         AdView adView = new AdView(this);
@@ -73,54 +81,88 @@ int combohata=0;
     }
 
     int tekrar = 0; //Seviye Tekrar
-    private void YeniSeviye() {
+
+    private void SeviyeDusur() {
+life--;
+        score=score-10;
+        sayac = 0;
+        clicksayac = 0;
+        kartKapatanSayac = 0;
+        combohata=0;
+        tekrar=0;
+
+        textView.setText("Level "+level );
+        txtCombo.setText("COMBO: "+combo);
+        txtSkor.setText("SCORE: "+score);
+        txtLife.setText("LIFE: "+life);
+        TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
+        table.removeAllViews();
+
+        AcilacakKartSayisi--;
+
+        if (AcilacakKartSayisi == (NUM_ROWS-1 * NUM_COLS-1)) {
+            NUM_ROWS--;
+            NUM_COLS--;
+        }
+
+
+        acilacakRowlar = new int[AcilacakKartSayisi];
+        acilacakColumnlar = new int[AcilacakKartSayisi];
+        btnList = new ArrayList<Button>();
+        buttons = new Button[NUM_ROWS][NUM_COLS];
+
+        
+        if (tekrar==1)
+            level=level-2;
+        else   level=level-3;
+        TextView textView=(TextView)findViewById(R.id.textView6);
+        textView.setText("Level "+level );
+
+
+        populateButtons();
+        ButtonTimer();
+
+        }
+
+
+    private void YeniSeviye() { //Yeni seviyeye geçtiğinde
         tekrar++;
-        if (tekrar < 2) {
-            tekrar++;
+        sayac = 0;
+        clicksayac = 0;
+        kartKapatanSayac = 0;
+        combohata=0;
 
-            TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
-            table.removeAllViews();
-            sayac = 0;
-            clicksayac = 0;
-            kartKapatanSayac = 0;
-            acilacakRowlar = new int[AcilacakKartSayisi];
-            acilacakColumnlar = new int[AcilacakKartSayisi];
-            btnList = new ArrayList<Button>();
-            buttons = new Button[NUM_ROWS][NUM_COLS];
+        if (combo==0) score+=10;
+        else score=score+(10*combo);
 
-            level++;
-            TextView textView=(TextView)findViewById(R.id.textView6);
-            textView.setText("Level "+level );
-            populateButtons();
+        textView.setText("Level "+level );
+        txtCombo.setText("COMBO: "+combo);
+        txtSkor.setText("SCORE: "+score);
+        txtLife.setText("LIFE: "+life);
 
-            ButtonTimer();
+        TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
+        table.removeAllViews();
 
+        if (tekrar < 2)  tekrar++;  //Aynı kartla 2 bölüm oynasın
 
-        } else {
+        else {
             tekrar = 0;
-            TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
-            table.removeAllViews();
-            sayac = 0;
-            clicksayac = 0;
-            kartKapatanSayac = 0;
-
-            level++;
-            TextView textView=(TextView)findViewById(R.id.textView6);
-            textView.setText("Level "+level );
-
             AcilacakKartSayisi++;
             if (AcilacakKartSayisi > (NUM_ROWS * NUM_COLS)) {
                 NUM_ROWS++;
                 NUM_COLS++;
             }
-            acilacakRowlar = new int[AcilacakKartSayisi];
-            acilacakColumnlar = new int[AcilacakKartSayisi];
-            btnList = new ArrayList<Button>();
-            buttons = new Button[NUM_ROWS][NUM_COLS];
-            populateButtons();
-            ButtonTimer();
-
         }
+        acilacakRowlar = new int[AcilacakKartSayisi];
+        acilacakColumnlar = new int[AcilacakKartSayisi];
+        btnList = new ArrayList<Button>();
+        buttons = new Button[NUM_ROWS][NUM_COLS];
+        level++;
+        TextView textView=(TextView)findViewById(R.id.textView6);
+        textView.setText("Level "+level );
+
+        populateButtons();
+        ButtonTimer();
     }
 
     private void kontrol(int row, int col) {
@@ -242,7 +284,9 @@ private  void KartEnabled(boolean b)
                         Toast.LENGTH_SHORT).show();
                 vibrator.vibrate(200);
                 vibrator.vibrate(500);
-                score=score+10;
+
+                if (combohata==0) combo++;
+
                 YeniSeviye();
             }
         }
@@ -280,7 +324,16 @@ vibrator.vibrate(50);
 
         final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
         vibrator.vibrate(50);
+        combohata++;
+        combo=0;
+        if (combohata>=3)
+        {
 
+            SeviyeDusur();
+
+        }
+
+        txtCombo.setText("COMBO :"+combo);
     }
 
     private void lockButtonSizes() {
