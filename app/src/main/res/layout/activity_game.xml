@@ -23,15 +23,41 @@ android:orientation="vertical">
 
                 android:text="Level 1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="30sp"
+                android:layout_height="wrap_content" android:id="@+id/textView6" android:textSize="25sp"
                 android:layout_gravity="center|top"
 
-        />
+                android:textColor="#FFFFFF" android:layout_marginTop="10dp"/>
+        <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp" android:id="@+id/buttonStop" android:foregroundGravity="right"
+                android:layout_gravity="right"
+                android:background="@drawable/stopbuton"
+                android:layout_marginTop="8dp" android:layout_marginRight="10dp"/>
     </FrameLayout>
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginRight="15dp">
+        <TextView
+                android:text="Life:  3"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content" android:id="@+id/txtLife" android:textColor="#FFFFFF"
+                android:textSize="20sp" android:textStyle="bold" android:gravity="left"/>
+        <TextView
+                android:text="SCORE:  0"
+                android:layout_width="60sp"
+                android:layout_height="wrap_content" android:id="@+id/txtScore" android:textColor="#FFFFFF"
+                android:textSize="22sp" android:textStyle="bold" android:layout_weight="1" android:gravity="center"/>
+        <TextView
+                android:text="COMBO: 0"
+                android:layout_width="130sp"
+                android:layout_height="wrap_content" android:id="@+id/txtCombo" android:textColor="#FFFFFF"
+                android:textSize="20sp" android:textStyle="bold" android:layout_weight="1" android:gravity="right"/>
+    </LinearLayout>
     <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="572dp" android:id="@+id/layoutTable" android:layout_marginLeft="15dp"
-            android:layout_marginTop="20dp" android:layout_marginRight="15dp"
+            android:layout_height="522dp" android:id="@+id/layoutTable" android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp" android:layout_marginRight="20dp"
             android:paddingBottom="10dp">
 
 
@@ -40,11 +66,12 @@ android:orientation="vertical">
             xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="match_parent"
-            android:layout_height="67dp"
+            android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
             ads:adSize="BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" android:layout_gravity="bottom">
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111" android:layout_gravity="bottom"
+            android:foregroundGravity="bottom">
     </com.google.android.gms.ads.AdView>
 
 

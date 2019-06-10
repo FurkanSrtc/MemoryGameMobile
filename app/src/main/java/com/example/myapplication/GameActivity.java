@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity {
     int randomRow;
     int randomCol;
     int kartKapatanSayac = 0;
+
     Random rnd = new Random();
     int[] acilacakRowlar = new int[AcilacakKartSayisi];
     int[] acilacakColumnlar = new int[AcilacakKartSayisi];
@@ -43,7 +44,12 @@ public class GameActivity extends AppCompatActivity {
     Runnable runnable;
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
     List<Button> btnList = new ArrayList<Button>();
+
 int level=1;
+int score=0;
+int life=5;
+int combo=0;
+int combohata=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,7 +225,7 @@ private  void KartEnabled(boolean b)
         }
     }
 
-    private void gridButtonClicked(int col, int row) {
+    private void gridButtonClicked(int col, int row) {  //BUTONA TIKLANDIĞINDA
         Button button = buttons[row][col];
 
         int newWidth = button.getWidth();
@@ -236,13 +242,14 @@ private  void KartEnabled(boolean b)
                         Toast.LENGTH_SHORT).show();
                 vibrator.vibrate(200);
                 vibrator.vibrate(500);
+                score=score+10;
                 YeniSeviye();
             }
         }
 
         else // YANLIŞ KARTI SEÇERSE
         {
-            button.setBackground(getDrawable(R.drawable.buttonhatakart));
+
             YanlisKart(button);
         }
 
@@ -253,6 +260,9 @@ private  void KartEnabled(boolean b)
 
     private void YanlisKart(final Button buton)
     {
+        //region TIMER (KAPALI - Kartı Gri Yapıp Söndürüyor)
+        /*
+         button.setBackground(getDrawable(R.drawable.buttonhatakart));
         final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
         handler = new Handler();
         runnable = new Runnable() {
@@ -265,6 +275,12 @@ vibrator.vibrate(50);
             }
         };
         handler.postDelayed(runnable,200);
+        */
+//endregion
+
+        final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
+        vibrator.vibrate(50);
+
     }
 
     private void lockButtonSizes() {
