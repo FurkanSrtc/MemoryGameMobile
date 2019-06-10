@@ -84,12 +84,12 @@ int combohata=0; //Yanlış seçim yapıldığında artıyor
 
     private void SeviyeDusur() {
 life--;
-        score=score-10;
+
         sayac = 0;
         clicksayac = 0;
         kartKapatanSayac = 0;
         combohata=0;
-        tekrar=0;
+
 
         textView.setText("Level "+level );
         txtCombo.setText("COMBO: "+combo);
@@ -98,12 +98,28 @@ life--;
         TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
         table.removeAllViews();
 
-        AcilacakKartSayisi--;
 
-        if (AcilacakKartSayisi == (NUM_ROWS-1 * NUM_COLS-1)) {
-            NUM_ROWS--;
-            NUM_COLS--;
+
+        if (tekrar==0)
+            level=level-2;
+        else   level=level-3;
+
+        if (level<=1) {
+            level=1;
         }
+        else {
+            score=score-10;
+            AcilacakKartSayisi--;
+
+            if (AcilacakKartSayisi == (NUM_ROWS-1 * NUM_COLS-1)) {
+                NUM_ROWS--;
+                NUM_COLS--;
+            }
+
+        }
+        TextView textView=(TextView)findViewById(R.id.textView6);
+        textView.setText("Level "+level );
+
 
 
         acilacakRowlar = new int[AcilacakKartSayisi];
@@ -111,14 +127,9 @@ life--;
         btnList = new ArrayList<Button>();
         buttons = new Button[NUM_ROWS][NUM_COLS];
 
-        
-        if (tekrar==1)
-            level=level-2;
-        else   level=level-3;
-        TextView textView=(TextView)findViewById(R.id.textView6);
-        textView.setText("Level "+level );
 
 
+        tekrar=0;
         populateButtons();
         ButtonTimer();
 
