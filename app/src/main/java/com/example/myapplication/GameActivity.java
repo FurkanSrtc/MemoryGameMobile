@@ -183,8 +183,8 @@ int combohata=0; //Yanlış seçim yapıldığında artıyor
             level=oyunBilgileri.getLevel();
             life=oyunBilgileri.getLife();
             AcilacakKartSayisi=oyunBilgileri.getAcilacakKartSayisi();
-            NUM_ROWS=oyunBilgileri.getNUM_ROWS();
-            NUM_COLS=oyunBilgileri.getNUM_COLS();
+            NUM_ROWS=oyunBilgileri.getNumRows();
+            NUM_COLS=oyunBilgileri.getNumCols();
         }
 
     public void YeniSeviye() { //Yeni seviyeye geçtiğinde

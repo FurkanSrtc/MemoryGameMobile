@@ -3,6 +3,23 @@ package com.example.myapplication;
 public class Level {
 
     private int combo;
+    private int score;
+    private int level;
+    private int life;
+    private int tekrar;
+    private int AcilacakKartSayisi;
+    private int NumRows;
+    private int NumCols;
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    private  int ID;
 
     public int getCombo() {
         return combo;
@@ -52,41 +69,34 @@ public class Level {
         AcilacakKartSayisi = acilacakKartSayisi;
     }
 
-    public int getNUM_ROWS() {
-        return NUM_ROWS;
+    public int getNumRows() {
+        return NumRows;
     }
 
-    public void setNUM_ROWS(int NUM_ROWS) {
-        this.NUM_ROWS = NUM_ROWS;
+    public void setNumRows(int numRows) {
+        NumRows = numRows;
     }
 
-    public int getNUM_COLS() {
-        return NUM_COLS;
+    public int getNumCols() {
+        return NumCols;
     }
 
-    public void setNUM_COLS(int NUM_COLS) {
-        this.NUM_COLS = NUM_COLS;
+    public void setNumCols(int numCols) {
+        NumCols = numCols;
     }
 
-    private int score;
-    private int level;
-    private int life;
-    private int tekrar;
-    private int AcilacakKartSayisi;
-    private int NUM_ROWS;
 
-    public Level(int combo, int score, int level, int life, int tekrar, int acilacakKartSayisi, int NUM_ROWS, int NUM_COLS) {
+
+    public Level(int tekrar, int combo, int score, int level, int life, int acilacakKartSayisi, int numRows, int numCols) {
+        this.tekrar = tekrar;
         this.combo = combo;
         this.score = score;
         this.level = level;
         this.life = life;
-        this.tekrar = tekrar;
-        AcilacakKartSayisi = acilacakKartSayisi;
-        this.NUM_ROWS = NUM_ROWS;
-        this.NUM_COLS = NUM_COLS;
+        this.AcilacakKartSayisi = acilacakKartSayisi;
+        this.NumRows = numRows;
+        this.NumCols = numCols;
     }
-
-    private int NUM_COLS;
 
     public Level() {
 
