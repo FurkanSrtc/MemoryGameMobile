@@ -20,10 +20,13 @@ public class PauseMenu extends Activity {
         Button button = (Button) findViewById(R.id.buttonStop);
         ConstraintLayout layout=(ConstraintLayout)findViewById(R.id.layoutMain);
 
-Database db=new Database(getApplicationContext());
-      /* Level oyunBilgileri= db.getirOyunBilgileri();
+
+        Intent i =getIntent();
+
+
        TextView txtlvl=(TextView)findViewById(R.id.txtLvl);
-       txtlvl.setText(oyunBilgileri.getLevel());*/
+       int lvl=i.getIntExtra("lvl",0);
+       txtlvl.setText(lvl+"");
 
 
 

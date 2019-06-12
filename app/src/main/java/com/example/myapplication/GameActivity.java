@@ -276,8 +276,8 @@ YeniSeviye();
                     if (sayac == AcilacakKartSayisi)
                         buttons[acilacakRowlar[sayac - 1]][acilacakColumnlar[sayac - 1]].setBackground(getDrawable(R.drawable.buttonkapalikart));
 
-                    Toast.makeText(getApplicationContext(), "SIRA SENDE !",
-                            Toast.LENGTH_SHORT).show();
+                  /*  Toast.makeText(getApplicationContext(), "SIRA SENDE !",
+                            Toast.LENGTH_SHORT).show();*/
                     handler.removeCallbacks(runnable);
                 KartEnabled(true);
 
@@ -354,8 +354,8 @@ private  void KartEnabled(boolean b)
             clicksayac++;
             if (clicksayac == AcilacakKartSayisi)  //TÜM KARTLARI DOĞRU SEÇERSE
             {  final Vibrator vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
-                Toast.makeText(this, "KAZANDIN",
-                        Toast.LENGTH_SHORT).show();
+               /* Toast.makeText(this, "KAZANDIN",
+                        Toast.LENGTH_SHORT).show();*/
                 vibrator.vibrate(200);
                 vibrator.vibrate(500);
 
@@ -363,6 +363,7 @@ private  void KartEnabled(boolean b)
 
 
                 Intent intent = new Intent(getApplicationContext(), PauseMenu.class);
+                intent.putExtra("lvl",level);
                 startActivity(intent);
 
 
