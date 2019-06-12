@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/textView2" android:textSize="33sp"
             android:textColor="#FFFFFF" android:textStyle="bold"
-            app:layout_constraintTop_toBottomOf="@+id/textView5" android:layout_marginBottom="142dp"
+            app:layout_constraintTop_toBottomOf="@+id/txtLvl" android:layout_marginBottom="142dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"/>
     <TextView
@@ -26,13 +26,13 @@
             android:id="@+id/textView4" android:textSize="35sp"
             android:gravity="center"
             android:textStyle="bold" android:layout_marginTop="207dp" android:layout_marginBottom="269dp"
-            app:layout_constraintEnd_toEndOf="@+id/textView5" app:layout_constraintBottom_toTopOf="@+id/textView2"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="@+id/textView5"/>
+            app:layout_constraintEnd_toEndOf="@+id/txtLvl" app:layout_constraintBottom_toTopOf="@+id/textView2"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintStart_toStartOf="@+id/txtLvl"/>
     <TextView
             android:text="15"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/textView5" android:textSize="38sp"
+            android:id="@+id/txtLvl" android:textSize="38sp"
             android:gravity="center"
             android:textStyle="bold" android:layout_marginTop="260dp" android:layout_marginBottom="216dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toTopOf="@+id/textView2"

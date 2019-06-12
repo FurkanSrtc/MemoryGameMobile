@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Layout;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class PauseMenu extends Activity {
 
@@ -19,10 +20,18 @@ public class PauseMenu extends Activity {
         Button button = (Button) findViewById(R.id.buttonStop);
         ConstraintLayout layout=(ConstraintLayout)findViewById(R.id.layoutMain);
 
+Database db=new Database(getApplicationContext());
+      /* Level oyunBilgileri= db.getirOyunBilgileri();
+       TextView txtlvl=(TextView)findViewById(R.id.txtLvl);
+       txtlvl.setText(oyunBilgileri.getLevel());*/
+
 
 
         layout.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+
+
+
                 // TODO Auto-generated method stub
                 Intent i = new Intent(getApplicationContext(),GameActivity.class);
 

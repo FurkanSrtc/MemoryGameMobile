@@ -75,17 +75,18 @@ int combohata=0; //Yanlış seçim yapıldığında artıyor
 
             }
         });
-/*
+
         try {
             OyunBilgileri();
         }
         catch (Exception e) {};
 
-*/
+
         textView=(TextView)findViewById(R.id.textView6);
         txtCombo= (TextView)findViewById(R.id.txtCombo);
         txtSkor= (TextView)findViewById(R.id.txtScore);
         txtLife=(TextView)findViewById(R.id.txtLife);
+
 
         //region REKLAMLAR
         AdView adView = new AdView(this);
@@ -99,8 +100,10 @@ int combohata=0; //Yanlış seçim yapıldığında artıyor
         Log.d("Tag", "onCreate: Furkan Test");
         //endregion
 
-        populateButtons();
-        ButtonTimer();
+
+YeniSeviye();
+    /*    populateButtons();
+        ButtonTimer();*/
     }
 
     int tekrar = 0; //Seviye Tekrar
@@ -191,8 +194,7 @@ int combohata=0; //Yanlış seçim yapıldığında artıyor
 
         VerileriAktar();
         OyunBilgileri();
-       /* Intent intent = new Intent(getApplicationContext(), PauseMenu.class);
-        startActivity(intent);*/
+
 
         tekrar++;
         sayac = 0;
@@ -358,6 +360,11 @@ private  void KartEnabled(boolean b)
                 vibrator.vibrate(500);
 
                 if (combohata==0) combo++;
+
+
+                Intent intent = new Intent(getApplicationContext(), PauseMenu.class);
+                startActivity(intent);
+
 
                 YeniSeviye();
             }

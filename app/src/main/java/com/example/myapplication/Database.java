@@ -47,7 +47,7 @@ public class Database extends SQLiteOpenHelper {
 
     public Level getirOyunBilgileri() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String query = "Select * From " + oyun_tablosu + " Order by ID ASC LIMIT 1";
+        String query = "Select * From " + oyun_tablosu + " Order by ID DESC LIMIT 1";
 
         Cursor c = db.rawQuery(query, null);
         int oyunID=c.getColumnIndex("ID");
