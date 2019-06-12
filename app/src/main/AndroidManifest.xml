@@ -15,7 +15,8 @@
         </activity>
         <activity android:name=".GameMenu">
         </activity>
-        <activity android:name=".PauseMenu">
+        <activity android:name=".PauseMenu" android:theme="@android:style/Theme.Translucent.NoTitleBar">
+
         </activity>
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -1,5 +1,6 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -50,6 +51,11 @@ int score=0;
 int life=5;
 int combo=0;
 int combohata=0; //Yanlış seçim yapıldığında artıyor
+
+    Database db;
+    Level levelClass;
+    Level oyunBilgileri;
+
     TextView textView;
     TextView txtCombo;
     TextView txtSkor;
@@ -59,6 +65,23 @@ int combohata=0; //Yanlış seçim yapıldığında artıyor
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        Button btn=(Button) findViewById(R.id.buttonStop);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getApplicationContext(), PauseMenu.class);
+                startActivity(intent);
+
+            }
+        });
+/*
+        try {
+            OyunBilgileri();
+        }
+        catch (Exception e) {};
+
+*/
         textView=(TextView)findViewById(R.id.textView6);
         txtCombo= (TextView)findViewById(R.id.txtCombo);
         txtSkor= (TextView)findViewById(R.id.txtScore);
@@ -83,7 +106,7 @@ int combohata=0; //Yanlış seçim yapıldığında artıyor
     int tekrar = 0; //Seviye Tekrar
 
     private void SeviyeDusur() {
-life--;
+        life--;
 
         sayac = 0;
         clicksayac = 0;
@@ -136,12 +159,48 @@ life--;
         }
 
 
-    private void YeniSeviye() { //Yeni seviyeye geçtiğinde
+        private  void  VerileriAktar()
+        {
+            levelClass=new Level(tekrar,combo,score,level,life,AcilacakKartSayisi,NUM_ROWS,NUM_COLS);
+            db =new Database(getApplicationContext());
+            db.ekleBilgi(levelClass);
+
+         /*    if (id>0)
+                 Toast.makeText(getApplicationContext(),"Başarılı",Toast.LENGTH_LONG).show();
+             else
+                 Toast.makeText(getApplicationContext(),"Başarısız",Toast.LENGTH_LONG).show();*/
+
+        }
+
+
+        private void OyunBilgileri()
+        {
+            db=new Database(getApplicationContext());
+            oyunBilgileri= db.getirOyunBilgileri();
+            tekrar=oyunBilgileri.getTekrar();
+            combo=oyunBilgileri.getCombo();
+            score=oyunBilgileri.getScore();
+            level=oyunBilgileri.getLevel();
+            life=oyunBilgileri.getLife();
+            AcilacakKartSayisi=oyunBilgileri.getAcilacakKartSayisi();
+            NUM_ROWS=oyunBilgileri.getNUM_ROWS();
+            NUM_COLS=oyunBilgileri.getNUM_COLS();
+        }
+
+    public void YeniSeviye() { //Yeni seviyeye geçtiğinde
+
+        VerileriAktar();
+        OyunBilgileri();
+       /* Intent intent = new Intent(getApplicationContext(), PauseMenu.class);
+        startActivity(intent);*/
+
         tekrar++;
         sayac = 0;
         clicksayac = 0;
         kartKapatanSayac = 0;
         combohata=0;
+
+
 
         if (combo==0) score+=10;
         else score=score+(10*combo);
@@ -150,6 +209,8 @@ life--;
         txtCombo.setText("COMBO: "+combo);
         txtSkor.setText("SCORE: "+score);
         txtLife.setText("LIFE: "+life);
+
+
 
         TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
         table.removeAllViews();
@@ -246,7 +307,7 @@ private  void KartEnabled(boolean b)
                     TableLayout.LayoutParams.MATCH_PARENT,
                     TableLayout.LayoutParams.MATCH_PARENT,
                     1.0f));
-            table.addView(tableRow);
+                    table.addView(tableRow);
 
             for (int col = 0; col < NUM_COLS; col++) {
 

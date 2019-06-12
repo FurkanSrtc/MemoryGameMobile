@@ -7,7 +7,7 @@
         android:layout_height="match_parent"
         android:background="@drawable/arkaplan"
         tools:context=".GameActivity" android:layout_gravity="center"
-android:orientation="vertical">
+        android:orientation="vertical" android:id="@+id/layoutMain">
 
 
     <FrameLayout
@@ -39,7 +39,7 @@ android:orientation="vertical">
             android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_marginLeft="15dp" android:layout_marginRight="15dp">
         <TextView
-                android:text="Life:  3"
+                android:text="Life:  5"
                 android:layout_width="130sp"
                 android:layout_height="wrap_content" android:id="@+id/txtLife" android:textColor="#FFFFFF"
                 android:textSize="20sp" android:textStyle="bold" android:gravity="left"/>
