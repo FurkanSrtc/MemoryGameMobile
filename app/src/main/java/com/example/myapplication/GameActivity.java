@@ -109,8 +109,10 @@ YeniSeviye();
     int tekrar = 0; //Seviye Tekrar
 
     private void SeviyeDusur() {
+        VerileriAktar();
+        OyunBilgileri();
         life--;
-
+        tekrar=0;
         sayac = 0;
         clicksayac = 0;
         kartKapatanSayac = 0;
@@ -134,7 +136,7 @@ YeniSeviye();
             level=1;
         }
         else {
-            score=score-10;
+            score=score-50;
             AcilacakKartSayisi--;
 
             if (AcilacakKartSayisi == (NUM_ROWS-1 * NUM_COLS-1)) {
@@ -155,7 +157,13 @@ YeniSeviye();
 
 
 
-        tekrar=0;
+
+
+        VerileriAktar();
+        OyunBilgileri();
+        Intent intent = new Intent(getApplicationContext(), GameOverActivity.class);
+        startActivity(intent);
+
         populateButtons();
         ButtonTimer();
 
@@ -365,7 +373,7 @@ private  void KartEnabled(boolean b)
                 Intent intent = new Intent(getApplicationContext(), PauseMenu.class);
                 intent.putExtra("lvl",level);
                 startActivity(intent);
-
+                overridePendingTransition(0, 0);
 
                 YeniSeviye();
             }
