@@ -46,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
     Button buttons[][] = new Button[NUM_ROWS][NUM_COLS];
     List<Button> btnList = new ArrayList<Button>();
 
-int level=1;
+int level=0;
 int score=0;
 int life=5;
 int combo=0;
@@ -109,10 +109,9 @@ YeniSeviye();
     int tekrar = 0; //Seviye Tekrar
 
     private void SeviyeDusur() {
-        VerileriAktar();
-        OyunBilgileri();
+
         life--;
-        tekrar=0;
+
         sayac = 0;
         clicksayac = 0;
         kartKapatanSayac = 0;
@@ -128,12 +127,15 @@ YeniSeviye();
 
 
 
-        if (tekrar==0)
+        if (tekrar<=1)
             level=level-2;
         else   level=level-3;
 
         if (level<=1) {
             level=1;
+            AcilacakKartSayisi=1;
+            NUM_ROWS=3;
+            NUM_COLS=3;
         }
         else {
             score=score-50;
@@ -149,18 +151,18 @@ YeniSeviye();
         textView.setText("Level "+level );
 
 
-
+        tekrar=-1;
         acilacakRowlar = new int[AcilacakKartSayisi];
         acilacakColumnlar = new int[AcilacakKartSayisi];
         btnList = new ArrayList<Button>();
         buttons = new Button[NUM_ROWS][NUM_COLS];
-
+        level--;
 
 
 
 
         VerileriAktar();
-        OyunBilgileri();
+
         Intent intent = new Intent(getApplicationContext(), GameOverActivity.class);
         startActivity(intent);
 
@@ -225,7 +227,7 @@ YeniSeviye();
         TableLayout table = (TableLayout) findViewById(R.id.layoutTable);
         table.removeAllViews();
 
-        if (tekrar < 2)  tekrar++;  //Aynı kartla 2 bölüm oynasın
+        if (tekrar <= 2)  tekrar++;  //Aynı kartla 2 bölüm oynasın
 
         else {
             tekrar = 0;
