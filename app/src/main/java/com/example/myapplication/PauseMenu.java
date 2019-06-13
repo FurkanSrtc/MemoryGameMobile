@@ -26,7 +26,7 @@ public class PauseMenu extends Activity {
 
        TextView txtlvl=(TextView)findViewById(R.id.txtLvl);
        int lvl=i.getIntExtra("lvl",0);
-       txtlvl.setText(lvl+"");
+       txtlvl.setText((lvl+1)+"");
 
 
 

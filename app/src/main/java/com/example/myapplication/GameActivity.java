@@ -47,7 +47,7 @@ public class GameActivity extends AppCompatActivity {
     List<Button> btnList = new ArrayList<Button>();
 
 int level=0;
-int score=0;
+int score=-10;
 int life=5;
 int combo=0;
 int combohata=0; //Yanlış seçim yapıldığında artıyor
@@ -138,6 +138,7 @@ YeniSeviye();
             NUM_COLS=3;
         }
         else {
+
             score=score-50;
             AcilacakKartSayisi--;
 
@@ -203,7 +204,7 @@ YeniSeviye();
     public void YeniSeviye() { //Yeni seviyeye geçtiğinde
 
         VerileriAktar();
-        OyunBilgileri();
+       // OyunBilgileri();
 
 
         tekrar++;
