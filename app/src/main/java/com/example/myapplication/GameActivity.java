@@ -29,9 +29,9 @@ import java.util.*;
 public class GameActivity extends AppCompatActivity {
 
     private static int AcilacakKartSayisi = 1;
-    private static int NUM_ROWS = 3;
-    private static int NUM_COLS = 3;
-    int sayac = 0;
+    private static int NUM_ROWS = 2;
+    private static int NUM_COLS = 2;
+    int sayac = 0; //dizilere veri atamak için
     int randomRow;
     int randomCol;
     int kartKapatanSayac = 0;
@@ -236,6 +236,7 @@ YeniSeviye();
             if (AcilacakKartSayisi > (NUM_ROWS * NUM_COLS)) {
                 NUM_ROWS++;
                 NUM_COLS++;
+
             }
         }
         acilacakRowlar = new int[AcilacakKartSayisi];
